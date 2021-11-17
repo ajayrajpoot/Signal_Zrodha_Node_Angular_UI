@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col-4">
+      <!-- <h3>{{cuser.NAME}}</h3>
+      <p>{{cuser.EMAIL}}</p>
+     -->
+     <div class="row col-sm-12 col-md-12" style="background-color:white;margin:2px;box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);border-bottom:3px solid #b6ff00">
+      <div class="box box-solid">
+          <div class="box-body">
+              <h4 style="background-color:#f7f7f7; font-size: 18px; text-align: center; padding: 7px 10px; margin-top: 0;">
+                  User Profile
+              </h4>
+              <div class="media">
+                  <div class="media-left">
+                      <a href="#" class="ad-click-event">
+  
+                          <img src="assets/profile.png" alt="" class="media-object" style="width: 150px;height:180px;border-radius: 4px;box-shadow: 0 1px 3px rgba(0,0,0,.15);">
+                      </a>
+                  </div>
+                  <div class="media-body">
+                      <div class="clearfix">
+  
+                          <div>
+                              <div style="margin-top: 0;">
+                               <p><b>Name: </b> <label >{{cuser.NAME}}</label> </p>  
+                                  <!-- <a style="" id="btn_UploadImage" href="#" class="btn btn-primary mybtn-lightRed " data-toggle="modal" data-target="#UploadImage_Model">
+                                      <b>+</b> Upload
+                                  </a> -->
+                              </div>
+  
+                          </div>
+  
+  
+                          <p> <b>Email:</b> <label >{{cuser.EMAIL}}</label></p>
+                          <p><b>Phone:</b><label >{{cuser.PHONE}}</label></p> 
+  
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+    </div>
+    <div class="col-8">
+      <div class="row crardCount" >
+        <div class="col-6">
+          <div class="shadow-sm p-3 mb-5 bg-white rounded bg-danger-gradient">
+            <h3><i class="far fa-envelope-open"></i>{{count.Email_Unverification}}</h3>
+            <hr>
+            <p>Email_Unverification</p>
+        </div>
+      </div>
+        <div class="col-6">
+          <div class="shadow-sm p-3 mb-5 bg-white rounded bg-primary-gradient">
+            <h3><i class="far fa-envelope-open"></i>{{count.Email_Verification}}</h3>
+            <hr>
+            <p>Email_Verification</p>
+        </div>
+      </div>
+        <div class="col-6">
+          <div class="shadow-sm p-3 mb-5 bg-white rounded">
+            <h3><i class="fas fa-phone-square"></i>{{count.Phone_Unverification}}</h3>
+            <hr>
+            <p>Phone_Unverification</p>
+          </div>
+         
+        </div>
+        <div class="col-6">
+          <div class="shadow-sm p-3 mb-5 bg-white rounded">
+            <h3><i class="fas fa-phone-square"></i>{{count.Phone_Verification}}</h3>
+            <hr>
+            <p>Phone_Verification</p>
+        </div>
+      </div> 
+        <div class="col-6">
+          <div class="shadow-sm p-3 mb-5 bg-white rounded">
+            <h3><i class="fas fa-users"></i>{{count.User_Active}}/{{count.Total_User}}</h3>
+            <hr>
+          <p>User</p>
+        </div>
+      </div>
+        <div class="col-6">
+          <div class="shadow-sm p-3 mb-5 bg-white rounded">
+            <h3><i class="fas fa-users"></i>{{count.User_Deactivate}}</h3>
+            <hr>
+            <p>User_Deactivate</p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>

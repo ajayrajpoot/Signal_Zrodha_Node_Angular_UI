@@ -1,0 +1,32 @@
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="row">
+        <div class="col-12">
+            <hr />
+            <table class="table table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">permission</th>
+                        <th scope="col">description</th>
+                        <th scope="col">url</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of ULPermition ;let index=index">
+                        <td><input type="checkbox" checked disabled></td>
+                        <td>{{i.permission}}</td>
+                        <td>{{i.description}}</td>
+                        <td>{{i.url}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

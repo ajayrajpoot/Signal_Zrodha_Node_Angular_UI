@@ -1,0 +1,52 @@
+
+<div class="wrapper fadeInDown">
+
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img style="width: 100px;border-radius: 40px; border: 1PX solid #000;
+      position: relative; top: -45px;" src="/assets/profile.png" id="icon" alt="User Icon" />
+    </div>
+    <button class="btn  " [ngClass]="{'btn-success':subscriber_mentor==0,'btn-outline-success':subscriber_mentor!=0}" (click)="subscriber_mentor=0">Subscriver</button>
+    <button class="btn  "  [ngClass]="{'btn-success':subscriber_mentor==1,'btn-outline-success':subscriber_mentor!=1}"  (click)="subscriber_mentor=1" >Mentor</button>
+
+    <!-- Signup Form -->
+    <form [formGroup]="frmSignup" (ngSubmit)="signup_subscriber_mentor(frmSignup.value)">
+      <input type="text"  class="fadeIn second"   placeholder="name"   formControlName="name">
+      <p class="errorMsg">{{formErrorsSignup.name}}</p>
+
+      <input type="text"  class="fadeIn second" placeholder="Email"   formControlName="email">
+      <p class="errorMsg">{{formErrorsSignup.email}}</p>
+
+      <input type="text"  class="fadeIn second" name="phone" placeholder="phone"   formControlName="phone">
+      <p class="errorMsg">{{formErrorsSignup.phone}}</p>
+
+      <input type="text" id="password" class="fadeIn third" placeholder="password" formControlName="password">
+      <p class="errorMsg">{{formErrorsSignup.password}}</p>
+
+      <input type="text"  class="fadeIn second" placeholder="address"   formControlName="address">
+      <p class="errorMsg">{{formErrorsSignup.address}}</p>
+
+
+        <input type="checkbox" formControlName="is_Active">
+<br>
+
+      <input type="submit" class="fadeIn fourth" value="{{subscriber_mentor==1?'Create Mentor':'Create Subscriber'}}"  >
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <div>
+          <a class="underlineHover" href="javascript:void(0)" (click)="redirect('/ee/forget')"  >Forgot Password?</a>
+      <!-- <a class="underlineHover" href="javascript:void(0)" (click)="redirect('/forget')"  >Forgot Password?</a> -->
+      <a class="underlineHover" href="javascript:void(0)" (click)="redirect('/ee/login')" >Login </a>
+      <!-- <a class="underlineHover" href="javascript:void(0)" (click)="signInWithFB()" >Facebook </a>
+      <a class="underlineHover" href="javascript:void(0)" (click)="signInWithGoogle()" >Gmail </a> -->
+ </div>
+       </div>
+
+  </div>
+</div>
+

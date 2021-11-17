@@ -1,0 +1,111 @@
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+
+    <div class="row">
+        <div class="col-4"> </div>
+        <div class="col-2"> </div>
+        <div class="col-4">  </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
+                data-target="#staticBackdrop">
+                Add User Level
+            </button>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <hr />
+            <table class="table table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">permission</th>
+                        <th scope="col">description</th>
+                        <th scope="col">url</th> 
+                        <th scope="col">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let i of cPERMISSION ;let index=index">
+                        <td>{{index+1}}</td>
+                        <td>{{i.permission}}</td>
+                        <td>{{i.description}}</td>
+                        <td>{{i.url}}</td>
+                         <td>
+ 
+                            <button class="btn btn-success  btn-sm  " type="button" (click)="cPERMISSION=i;frmPERMISSION.reset(i)"
+                                data-toggle="modal" data-target="#staticBackdrop">
+                                <i class="far fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger  btn-sm  " type="button" (click)="DELETE_PERMISSION(i.permission_id)">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                          
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+                </div>
+    </div>
+    <div>
+        <!-- Button trigger modal -->
+        <!-- Add PERMISSION -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closePermitionModalBtn">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div> 
+                    <form [formGroup]="frmPERMISSION" (ngSubmit)="ADD_PERMISSION(frmPERMISSION.value)">
+                        <div class="modal-body">
+                            <div class="form-row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label> permission</label>
+                                        <input type="text" class="form-control" placeholder="Enter permission"
+                                            formControlName="permission">
+                                        <p class="errorMsg">{{formErrorsPERMISSION.permission}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>url </label>
+                                        <input type="text" class="form-control" placeholder="Enter url"
+                                            formControlName="url">
+                                        <p class="errorMsg">{{formErrorsPERMISSION.url}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>description </label>
+                                        <input type="text" class="form-control" placeholder="Enter description"
+                                            formControlName="description">
+                                        <p class="errorMsg">{{formErrorsPERMISSION.description}}</p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div> 
+                            <button type="button" class="btn btn-primary"
+                                (click)="frmPERMISSION.valid?ADD_PERMISSION(frmPERMISSION.value): markFormTouched(frmPERMISSION)">Add PERMISSION</button>
+                        
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+  

@@ -1,0 +1,65 @@
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+    
+    <form [formGroup]="frmSMTP" (ngSubmit)="ADD_SMTP(frmSMTP.value)">
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label> SERVER</label>
+                        <input type="text" class="form-control" placeholder="Enter Name"
+                            formControlName="SMTP_SERVER">
+                        <p class="errorMsg">{{formErrorsSMTP.SMTP_SERVER}}</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>PORT </label>
+                        <input type="number" class="form-control" placeholder="Enter Email"
+                            formControlName="SMTP_PORT">
+                        <p class="errorMsg">{{formErrorsSMTP.SMTP_PORT}}</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>USER NAME </label>
+                        <input type="text" class="form-control" placeholder="Enter Phone"
+                            formControlName="MAILER_USER_NAME">
+                        <p class="errorMsg">{{formErrorsSMTP.MAILER_USER_NAME}}</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>PASSWORD </label>
+                        <input type="text" class="form-control" placeholder="Enter MAILER_PASSWORD"
+                            formControlName="MAILER_PASSWORD">
+                        <p class="errorMsg">{{formErrorsSMTP.MAILER_PASSWORD}}</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label> SSL </label>
+                        <select    formControlName="ENABLE_SSL"  class="form-control" >
+                            <option   value="0" select>DISENABLE SSL </option>
+                            <option   value="1" select>ENABLE SSL </option>
+                        </select>
+                        <!-- <input type="number" class="form-control" placeholder="Enter ENABLE_SSL"
+                            formControlName="ENABLE_SSL"> -->
+                        <p class="errorMsg">{{formErrorsSMTP.ENABLE_SSL}}</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>TIMEOUT_MS </label>
+                        <input type="number" class="form-control" placeholder="Enter TIMEOUT_MS"
+                            formControlName="TIMEOUT_MS">
+                        <p class="errorMsg">{{formErrorsSMTP.TIMEOUT_MS}}</p>
+                    </div>
+                </div>
+            </div>
+        </div> 
+            <button type="button" class="btn btn-primary"
+                (click)="frmSMTP.valid?ADD_SMTP(frmSMTP.value): markFormTouched(frmSMTP)">Add SMTP</button>
+        
+    </form>
+</div>
+  

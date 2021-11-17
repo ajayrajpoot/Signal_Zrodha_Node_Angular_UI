@@ -1,0 +1,95 @@
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+
+  <div class="row">
+    <div class="form-row">
+      <div class="col-2">
+        <div class="form-group">
+          <label> Name</label>
+          <input type="text" class="form-control" placeholder="Name" [(ngModel)]="walletParms.Name">
+        </div>
+      </div>
+
+      <div class="col-2">
+        <div class="form-group">
+          <label> Email </label>
+          <input type="text" class="form-control" placeholder="Email" [(ngModel)]="walletParms.Email">
+
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="form-group">
+          <label> Password </label>
+          <input type="text" class="form-control" placeholder="Password" [(ngModel)]="walletParms.Password">
+
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="form-group">
+          <label> Phone </label>
+          <input type="text" class="form-control" placeholder="Phone" [(ngModel)]="walletParms.Phone">
+
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="form-group">
+          <label> Country </label>
+          <input type="text" class="form-control" placeholder="Country" [(ngModel)]="walletParms.Country">
+
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="form-group">
+          <label> ZipCode </label>
+          <input type="text" class="form-control" placeholder="ZipCode" [(ngModel)]="walletParms.ZipCode">
+        </div>
+      </div>
+      <div class="col-2">
+        <input type="button" class="form-control" value="Add" (click)="CREATE_WALLET(walletParms)">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    {{wallets|json}}
+    <div class="col-8">
+      <table *ngFor="let i of wallets;let index=index;">
+        <tr>
+          <td> {{i.Email}}</td>
+          <td>{{i.Name}}</td>
+          <td><input type="button" value="Balance" (click)="cWallet=i"></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-8">
+      <table>
+        <tr>
+          <td>{{cWallet|json}}</td>
+          <td><input type="text" placeholder="Amount" [(ngModel)]="manualPayment.amount"> </td>
+          <td><input type="text" placeholder="Comment" [(ngModel)]="manualPayment.Comment"> </td>
+          <td><input type="button" value="Add Balance" (click)="ADD_PAYMANUAL(manualPayment)"></td>
+        </tr>
+      </table>
+
+      <table *ngFor="let i of paynetManual;let index=index;">
+        <tr>
+          <td> {{i.Email}}</td>
+          <td>{{i.Name}}</td>
+          <td>{{i.Amount}}</td>
+          <td>{{i.Comment}}</td>
+          <td>{{i.Status}}</td>
+          <td><input type="button" value="Approve" (click)="APPROVE_MANUAL_PAY(i,2)"></td>
+          <td><input type="button" value="Reject" (click)="APPROVE_MANUAL_PAY(i,3)"></td>
+          <td><input type="button" value="ADD_LEDGER_ENTRY" (click)="ADD_LEDGER_ENTRY(i)"></td>
+        </tr>
+      </table>
+
+      <table *ngFor="let i of paynetLedgerEntry;let index=index;">
+        <tr>
+          <!-- <td> {{i.Email}}</td>
+          <td>{{i.Name}}</td>
+          <td>{{i.Amount}}</td>
+          <td>{{i.Comment}}</td> -->
+          <td>{{i.Status}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>

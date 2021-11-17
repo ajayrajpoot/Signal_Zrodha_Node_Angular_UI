@@ -1,0 +1,303 @@
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+
+    <div class="row">
+        <div class="col-4"> </div>
+        <div class="col-2"> </div>
+        <div class="col-4">
+            <select [(ngModel)]="type">
+                <option value="1">Name</option>
+                <option value="2">Email</option>
+                <option value="3">Phone</option>
+            </select>
+            <input [(ngModel)]="search" type="text" placeholder="Serch"><input type="button" value="Search"
+                (click)="SEARCH_USER()"> </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
+                data-target="#staticBackdrop">
+                Add User
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr />
+            <table class="table table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">NAME</th>
+                        <th scope="col">EMAIL</th>
+                        <th scope="col">PHONE</th>
+                        <th scope="col">USER_TYPE</th>
+                        <th scope="col">Active</th>
+                        <th scope="col">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let i of users| paginate: {id: 'some_id', itemsPerPage: 10, currentPage: p, totalItems: filter.total };let index=index">
+                        <td>{{index+1}}</td>
+                        <td>{{i.NAME}}</td>
+                        <td>{{i.EMAIL}}</td>
+                        <td>{{i.PHONE}}</td>
+                        <td>{{i.USER_TYPE}}</td>
+                        <td>{{i.ACTIVE==1?'Active':''}}</td>
+                        <td>
+
+                            <button class="btn btn-danger  btn-sm  " type="button" (click)="cUser=i" data-toggle="modal"
+                                data-target="#mailerModal" (click)="frmMAILER.reset({To:i.EMAIL})"
+                                [disabled]="i.VERIFICATION_EMAIL!=1 ? true : false  ">
+                                <i class="fas fa-envelope-square"></i>
+                            </button>
+                            <button class="btn btn-danger  btn-sm  " type="button" (click)="cUser=i" data-toggle="modal"
+                                data-target="#smsModal" (click)="frmSMS.reset({Mobile:i.PHONE})"
+                                [disabled]="i.VERIFICATION_PHONE!=1 ? true : false  ">
+                                SMS
+                            </button>
+                            <button class="btn btn-success  btn-sm  " type="button" (click)="cUser=i;frmUSER.reset(i)"
+                                data-toggle="modal" data-target="#staticBackdrop">
+                                <i class="far fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger  btn-sm  " type="button" (click)="DELETE_USER(i.ID)">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            <pagination-controls id="some_id" (pageChange)="pageChanged($event)"
+                                (pageBoundsCorrection)="pageChanged($event)" maxSize="9" directionLinks="true"
+                                autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
+                                screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                                screenReaderCurrentLabel="You're on page">
+                            </pagination-controls>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+
+
+        </div>
+    </div>
+    <div>
+        <!-- Button trigger modal -->
+
+
+
+        
+        <!--Send SMS -->
+        <div class="modal fade" id="smsModal" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Send SMS </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form [formGroup]="frmSMS" (ngSubmit)="SEND_SMS(frmSMS.value)">
+                        <div class="modal-body">
+                            <div class="form-row">
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label> Mobile</label>
+                                        <input type="text" class="form-control" placeholder="Enter Mobile"
+                                            formControlName="Mobile">
+                                        <p class="errorMsg">{{formErrorsSMS.Mobile}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-9">
+                                    <div class="form-group">
+                                        <label>Message </label>
+                                        <textarea type="text" class="form-control" placeholder="Enter Message"
+                                            formControlName="Message"></textarea>
+                                        <p class="errorMsg">{{formErrorsSMS.Message}}</p>
+                                    </div>
+                                </div>
+ 
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" >Send SMS</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div> 
+        <!--Send Mailer -->
+        <div class="modal fade" id="mailerModal" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Send Mail </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form [formGroup]="frmMAILER" (ngSubmit)="SEND_MAIL1(frmMAILER.value)">
+                        <div class="modal-body">
+                            <div class="form-row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label> To</label>
+                                        <input type="text" class="form-control" placeholder="Enter Email"
+                                            formControlName="To">
+                                        <p class="errorMsg">{{formErrorsMAILER.MailSubject}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label>ccMail </label>
+                                        <input type="text" class="form-control" placeholder="Enter ccMail"
+                                            formControlName="ccMail">
+                                        <p class="errorMsg">{{formErrorsMAILER.ccMail}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label>BccMail </label>
+                                        <input type="text" class="form-control" placeholder="Enter BccMail"
+                                            formControlName="BccMail">
+                                        <p class="errorMsg">{{formErrorsMAILER.BccMail}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label> MailSubject</label>
+                                        <input type="text" class="form-control" placeholder="Enter MailSubject"
+                                            formControlName="MailSubject">
+                                        <p class="errorMsg">{{formErrorsMAILER.MailSubject}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>MailBody </label>
+                                        <angular-editor id="myEditor" [config]="editorConfig"
+                                            formControlName="MailBody">
+                                        </angular-editor>
+                                        <p class="errorMsg">{{formErrorsMAILER.MailBody}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary"
+                                (click)="frmMAILER.valid?SEND_MAIL1(frmMAILER.value): markFormTouched(frmMAILER)">Add
+                                MAILER</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div> 
+        <!-- Add User -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Users</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!-- <div class="modal-body">
+                        ...
+                    </div> -->
+                    <form [formGroup]="frmUSER" (ngSubmit)="ADD_USER(frmUSER.value)">
+                        <div class="modal-body">
+                            <div class="form-row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label> NAME</label>
+                                        <input type="text" class="form-control" placeholder="Enter Name"
+                                            formControlName="NAME">
+                                        <p class="errorMsg">{{formErrorsUSER.NAME}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>EMAIL </label>
+                                        <input type="text" class="form-control" placeholder="Enter EMAIL"
+                                            formControlName="EMAIL">
+                                        <p class="errorMsg">{{formErrorsUSER.EMAIL}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>PHONE </label>
+                                        <input type="text" class="form-control" placeholder="Enter PHONE"
+                                            formControlName="PHONE">
+                                        <p class="errorMsg">{{formErrorsUSER.PHONE}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>PASSWORD </label>
+                                        <input type="text" class="form-control" placeholder="Enter PHONE"
+                                            formControlName="PASSWORD">
+                                        <p class="errorMsg">{{formErrorsUSER.PASSWORD}}</p>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label>USER_TYPE </label>
+                                        <select class="form-control" formControlName="USER_TYPE">
+                                            <option  value="0"  >User </option>
+                                            <option *ngFor="let l of USER_LEVELs" [value]="l.level_id">{{l.level}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>ACTIVE </label>
+                                        <input type="checkbox" formControlName="ACTIVE">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>VERIFICATION_EMAIL </label>
+                                        <input type="checkbox" formControlName="VERIFICATION_EMAIL">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>VERIFICATION_PHONE </label>
+                                        <input type="checkbox" formControlName="VERIFICATION_PHONE">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary"
+                                (click)="frmUSER.valid?ADD_USER(frmUSER.value): markFormTouched(frmUSER)">Add
+                                User</button>
+                        </div>
+                    </form>
+
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

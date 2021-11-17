@@ -1,0 +1,139 @@
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+
+  <div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-8">
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#staticBackdrop"
+        (click)="frmPLAN.reset();cPLAN=null">
+        Add Plan
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <hr />
+      <table class="table table-striped">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <!-- <th>planName</th> -->
+            <th>planName</th>
+            <th>duration</th>
+            <th>sDate</th>
+            <th>expiery</th>
+            <th>MentorId</th>
+            <th scope="col">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of PLANs;let index=index">
+            <td>{{index+1}}</td>
+            <!-- <td>{{i._id}}</td> -->
+            <td>{{i.planName}}</td>
+            <td>{{i.duration}}
+              {{i.durationType==1?'Day':(i.durationType==2?'Week':(i.durationType==3?'Month':(i.durationType==4?'year':'--')))}}
+            </td>
+            <td>{{i.sDate| date:'MMM d, y'}}</td>
+            <td>{{i.expiery| date:'MMM d, y'}}</td>
+            <td>{{i.price}}</td>
+            <td>
+              <button class="btn btn-success  btn-sm  " type="button" (click)="cPLAN=i;frmPLAN.reset(i)"
+                data-toggle="modal" data-target="#staticBackdrop">
+                <i class="far fa-edit"></i>
+              </button>
+              <button class="btn btn-error  btn-sm  " type="button" (click)="deletePlan(i._id)">
+                <i class="far fa-delete"></i>Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+    <!-- Add PLAN -->
+    <div class="modal fade" id="staticBackdrop" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">PLAN <b> </b></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form [formGroup]="frmPLAN" (ngSubmit)="frmPLAN.valid?addupdatePlan(frmPLAN.value): markFormTouched(frmPLAN)">
+            <div class="modal-body">
+              <div class="form-row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> planName</label>
+                    <input type="text" class="form-control" placeholder="name" formControlName="planName">
+                    <p class="errorMsg">{{formErrorsPLAN.planName}}</p>
+                  </div>
+                </div>
+
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> price</label>
+                    <input type="text" class="form-control" placeholder="price" formControlName="price">
+                    <p class="errorMsg">{{formErrorsPLAN.price}}</p>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> durationType </label>
+                    <select class="form-control" formControlName="durationType">
+                      <option value>Duration Type</option>
+                      <option value="1">Day</option>
+                      <option value="2">Week</option>
+                      <option value="3">Month</option>
+                      <option value="4">Year</option>
+                    </select>
+                    <p class="errorMsg">{{formErrorsPLAN.durationType}}</p>
+                  </div>
+                </div>
+
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> duration</label>
+                    <input type="text" class="form-control" placeholder="duration" formControlName="duration">
+                    <p class="errorMsg">{{formErrorsPLAN.duration}}</p>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> sDate</label>
+                    <input type="date" class="form-control" placeholder="sDate" formControlName="sDate">
+                    <p class="errorMsg">{{formErrorsPLAN.sDate}}</p>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> expiery</label>
+                    <input type="date" class="form-control" placeholder="expiery" formControlName="expiery">
+                    <p class="errorMsg">{{formErrorsPLAN.expiery}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">
+                {{cPLAN==null?"Add":"Update"}} Plan
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

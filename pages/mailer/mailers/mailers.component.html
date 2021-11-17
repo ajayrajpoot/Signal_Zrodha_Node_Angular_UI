@@ -1,0 +1,246 @@
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+    <!-- Button trigger modal -->
+    <div class="row">
+        <div class="col-4"> </div>
+        <div class="col-2"> </div>
+        <div class="col-4"> </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
+                data-target="#staticBackdrop">
+                Add Mailer
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <td>MailSubject</td>
+                        <!-- <td>MailBody</td> -->
+                        <td>MailCode</td>
+                        <td>MailTemplate</td>
+                        <td>ccMail/BccMail</td>
+                        <td style="width: 200px;">Edit</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of mailers">
+                        <td>{{i.MailSubject}}</td>
+                        <td>{{i.MailCode}}</td>
+                        <td> {{i.MailTemplate}} </td>
+                        <td>Cc: {{i.ccMail}} <br /> Bcc:{{i.BccMail}}</td>
+                        <td>
+                            <button class="btn btn-danger  btn-sm  " type="button" (click)="setMailTo(i)"
+                                data-toggle="modal" data-target="#mailUser">
+                                <i class="fas fa-envelope-square"></i>
+                            </button>
+                            <button class="btn btn-danger  btn-sm  " type="button" (click)="setMailTo(i)"
+                                data-toggle="modal" data-target="#cMailer">
+                                <i class="fas fa-eye"></i>
+                            </button>
+
+                            <button class="btn btn-danger  btn-sm  " type="button" (click)="copyText(i.MailBody)">
+                                <i class="far fa-copy"></i>
+                            </button>
+                            <button class="btn btn-success  btn-sm  " type="button"
+                                (click)="cMAILER=i;frmMAILER.reset(i)" data-toggle="modal"
+                                data-target="#staticBackdrop">
+                                <i class="far fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger  btn-sm  " type="button" (click)="DELETE_MAILER(i.MailID)">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                            <!-- <input type="button" class="btn btn-primary" value="Edit" (click)="cMAILER=i;frmMAILER.reset(i)"
+                            data-toggle="modal" data-target="#staticBackdrop"> -->
+                            <!-- <input type="button" class="btn btn-primary" value="Mail" (click)="setMailTo(i)"
+                            data-toggle="modal" data-target="#mailUser"> -->
+                            <!-- <input type="button" class="btn btn-primary" value="Show Mailer" (click)="setMailTo(i)"
+                            data-toggle="modal" data-target="#cMailer"> -->
+                            <!-- <button type="button" class="btn btn-primary"
+                            (click)="copyText(i.MailBody)">CopyMailerText</button> -->
+                            <!-- <button type="button" class="btn btn-primary" (click)="DELETE_MAILER(i.MailID)">Delete</button> -->
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <!--Add Mailer -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Editor Mailer </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form [formGroup]="frmMAILER" (ngSubmit)="ADD_MAILER(frmMAILER.value)">
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label> MailSubject</label>
+                                    <input type="text" class="form-control" placeholder="Enter MailSubject"
+                                        formControlName="MailSubject">
+                                    <p class="errorMsg">{{formErrorsMAILER.MailSubject}}</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>MailTemplate </label>
+                                    <input type="text" class="form-control" placeholder="Enter MailTemplate"
+                                        formControlName="MailTemplate">
+                                    <p class="errorMsg">{{formErrorsMAILER.MailTemplate}}</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>MailCode </label>
+                                    <input type="text" class="form-control" placeholder="Enter MailCode"
+                                        formControlName="MailCode">
+                                    <p class="errorMsg">{{formErrorsMAILER.MailCode}}</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>ccMail </label>
+                                    <input type="text" class="form-control" placeholder="Enter ccMail"
+                                        formControlName="ccMail">
+                                    <p class="errorMsg">{{formErrorsMAILER.ccMail}}</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>BccMail </label>
+                                    <input type="text" class="form-control" placeholder="Enter BccMail"
+                                        formControlName="BccMail">
+                                    <p class="errorMsg">{{formErrorsMAILER.BccMail}},{{formErrorsMAILER|json}}</p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>MailBody </label>
+                                    <!-- <input type="text" class="form-control" placeholder="Enter MailBody" formControlName="MailTemplateTest"> -->
+                                    <!-- <kendo-editor [value]="value" (valueChange)="valueChange($event)" style="height: 400px;"></kendo-editor> -->
+                                    <angular-editor id="myEditor" [config]="editorConfig" formControlName="MailBody">
+                                    </angular-editor>
+                                    <!-- <kendo-editor formControlName="MailBody" (valueChange)="valueChange($event)" style="height: 400px;"></kendo-editor> -->
+                                    <p class="errorMsg">{{formErrorsMAILER.MailBody}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary"
+                            (click)="frmMAILER.valid?ADD_MAILER(frmMAILER.value): markFormTouched(frmMAILER)">Add
+                            MAILER</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Send mail -->
+
+
+    <div class="modal fade" id="mailUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg bounceInUp animated" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Send Mail </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <div class="form-row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label> Subject</label>
+                                        <input type="text" class="form-control" [(ngModel)]="mail.subject"
+                                            placeholder="Enter Subject">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label> MailBody</label>
+                                        <input type="text" class="form-control" [(ngModel)]="mail.body"
+                                            placeholder="Enter Body">
+                                    </div>
+                                </div>
+
+                                <div class="col-3" *ngFor="let v of valuesLaval;let i=index">
+                                    <div class="form-group">
+                                        <label>{{v}} </label>
+                                        <input type="text" class="form-control" [(ngModel)]="values[i]">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <table class="table">
+                                <tr>
+                                    <td> </td>
+                                    <td>Name</td>
+                                    <td>Email</td>
+                                    <td>Sand MAil</td>
+                                    <td>Mobile No</td>
+                                </tr>
+                                <tr *ngFor="let i of users">
+                                    <td><input type="checkbox"></td>
+                                    <td>{{i.NAME}}</td>
+                                    <td>{{i.EMAIL}}</td>
+                                    <td>{{i.PHONE}}</td>
+
+                                    <td><input type="button" value="SEND_MAIL" (click)="SEND_MAIL(i)">
+                                        <input type="button" value="SEND_MAIL_BYUSER" (click)="SEND_MAIL_BYUSER(i)">
+                                        <input type="button" value="SEND_WHATSUP"
+                                            (click)="SEND_MESS_Whatsup({To:i.PHONE,Msg:'Hi'})">
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="cMailer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg bounceInUp animated" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Update Package</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- <iframe src="{{csetMailTo.MailBody}}" height="200" width="300"></iframe> -->
+                    <div style=" isolation: isolate;" [innerHTML]="transform(csetMailTo?.MailBody)">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

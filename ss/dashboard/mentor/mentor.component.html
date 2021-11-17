@@ -1,0 +1,126 @@
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+
+  <div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-8">
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#staticBackdrop"
+        (click)="frmMENTOR.reset();cMENTOR=null">
+        Add Mentor
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <hr />
+      <table class="table table-striped">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th>name</th>
+            <th>email</th>
+            <th>password</th>
+            <th>is_Active</th>
+            <th scope="col">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of MENTORs;let index=index">
+            <td>{{index+1}}</td>
+            <td>{{i.name}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.password}}</td>
+            <td>{{i.status}}</td>
+
+            <td>
+
+
+              <button class="btn btn-success  btn-sm  " type="button" (click)="cMENTOR=i;frmMENTOR.reset(i)"
+                data-toggle="modal" data-target="#staticBackdrop">
+                <i class="far fa-edit"></i>
+              </button>
+
+              <button class="btn btn-success  btn-sm  " type="button"   data-toggle="modal"
+                data-target="#staticBackdropClient" (click)="currentMentor(i)">
+                <i class="far fa-delete"></i>Login
+              </button>
+              <button class="btn btn-success  btn-sm  " type="button"   (click)="deleteMentor(i)">
+                <i class="far fa-delete"></i>Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6">
+
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  <div>
+    <!-- Add MENTOR -->
+    <div class="modal fade" id="staticBackdrop" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">MENTOR <b>   </b></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form [formGroup]="frmMENTOR" (ngSubmit)="frmMENTOR.valid?addUpdateMentor(frmMENTOR.value): markFormTouched(frmMENTOR)">
+            <div class="modal-body">
+              <div class="form-row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> Name</label>
+                    <input type="text" class="form-control" placeholder="name" formControlName="name">
+                    <p class="errorMsg">{{formErrorsMENTOR.name}}</p>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> email </label>
+                    <input type="text" class="form-control" placeholder="Email" formControlName="email">
+                    <p class="errorMsg">{{formErrorsMENTOR.email}}</p>
+                  </div>
+                </div>
+
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> password</label>
+                    <input type="text" id="password" class="form-control" placeholder="password"
+                      formControlName="password">
+                    <p class="errorMsg">{{formErrorsMENTOR.password}}</p>
+                  </div>
+                </div>
+                 <div class="col-4">
+                  <div class="form-group">
+                    <label>ACTIVE </label>
+                    <input type="checkbox" formControlName="status">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">
+                {{cMENTOR==null?"Add":"Update"}} Client
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

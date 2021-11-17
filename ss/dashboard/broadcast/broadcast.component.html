@@ -1,0 +1,296 @@
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+  <div class="row">
+    <div class="col-12">
+      <hr />
+
+
+
+      <!-- Mentors -->
+      <div>
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#myMentor">My Mentor</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#allMentors">Mentor</a>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+          <!-- My Mentor -->
+          <div class="tab-pane fade show active" id="myMentor" role="tabpanel" aria-labelledby="myMentor-tab">
+            <h3>My Mentor</h3>
+            <table class="table table-striped">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th>mentorId</th>
+                  <th>Email</th>
+                  <th>is_Active</th>
+                  <th scope="col">Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let i of mySubscribeMENTORs;let index=index">
+                  <td>{{index+1}}</td>
+                  <td>{{i.mentor[0].name}}</td>
+                  <td>{{i.mentor[0].email}}</td>
+                  <td>{{i.status}}</td>
+                  <td>
+                    <button class="btn btn-success  btn-sm  " type="button" (click)="unsubscribeSubscribedMentor(i)">
+                      <i class="far fa-delete"></i> Unfollow
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="6">
+
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <!-- All Mentor -->
+
+          <div class="tab-pane fade" id="allMentors" role="tabpanel" aria-labelledby="allMentors-tab">
+            <!-- Mento -->
+
+            <h3> Mentors</h3>
+            <table class="table table-striped">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th>name</th>
+                  <th>email</th>
+                  <!-- <th>status</th> -->
+                  <th scope="col">Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let i of MENTORs;let index=index">
+                  <td>{{index+1}}</td>
+                  <td>{{i.name}}</td>
+                  <td>{{i.email}}</td>
+                  <!-- <td>{{i.status}}</td> -->
+                  <td>
+                    <button class="btn btn-success  btn-sm  " type="button" (click)="subscribeMentor(i)">
+                      <i class="far fa-delete"></i> Follow
+                    </button>
+
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="6">
+
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--  Signals-->
+      <div>
+
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#myPlanSignal"
+              (click)="getBuyedPlanSignal(cSubscriber._id)">My Plan Signal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " data-toggle="pill" href="#mySignal"
+              (click)="getSubscrivedMentorSignal(cSubscriber._id)">My Signal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#AllSignal"
+              (click)="mySubscribeMentor(cSubscriber._id)">Signal</a>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+          <!-- Paln Signal -->
+          <div class="tab-pane fade show active" id="myPlanSignal" role="tabpanel" aria-labelledby="mySignal-tab">
+            <h3>My Plan Signal</h3>
+            <table class="table table-striped">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th>planId</th>
+                  <th>Mentor Name </th>
+                  <th>BSE_NSC</th>
+                  <th>BUY_SELL</th>
+                  <th>stockName</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                  <th>MIS_CNC</th>
+                  <th>orderType</th>
+                  <th>triggerPrice</th>
+                  <th>setStoploss</th>
+                  <th>stoploss_percent</th>
+                  <th>setTarget</th>
+                  <th>target_price</th>
+                  <th>variety</th>
+                  <th>validity</th>
+                  <th scope="col">expier_on</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let i of myPlamSignals;let index=index">
+                  <td>{{index+1}}</td>
+                  <td>{{i.plan.planName}}</td>
+                  <td>{{i.signal.mentorDetail.name}}</td>
+                  <td>{{i.signal.BSE_NSC}}</td>
+                  <td>{{i.signal.BUY_SELL}}</td>
+                  <td>{{i.signal.stockName}}</td>
+                  <td>{{i.signal.Qty}}</td>
+                  <td>{{i.signal.Price}}</td>
+                  <td>{{i.signal.MIS_CNC}}</td>
+                  <td>{{i.signal.orderType}}</td>
+                  <td>{{i.signal.triggerPrice}}</td>
+                  <td>{{i.signal.setStoploss}}</td>
+                  <td>{{i.signal.stoploss_percent}}</td>
+                  <td>{{i.signal.setTarget}}</td>
+                  <td>{{i.signal.target_price}}</td>
+                  <td>{{i.signal.variety}}</td>
+                  <td>{{i.signal.validity}}</td>
+                  <td>{{i.signal.expier_on}}</td>
+
+                  <td>
+                    <!-- <button class="btn btn-success  btn-sm  " type="button" data-toggle="modal"
+                    data-target="#staticBackdropClient" >
+                    <i class="far fa-delete"></i> Follow
+                  </button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- My Signal -->
+          <div class="tab-pane fade    " id="mySignal" role="tabpanel" aria-labelledby="mySignal-tab">
+            <h3>My Signal</h3>
+
+            <table class="table table-striped">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <!-- <th>Public</th>-->
+                  <th>Mentor Name </th>
+                  <th>BSE_NSC</th>
+                  <th>BUY_SELL</th>
+                  <th>stockName</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                  <th>MIS_CNC</th>
+                  <th>orderType</th>
+                  <th>triggerPrice</th>
+                  <th>setStoploss</th>
+                  <th>stoploss_percent</th>
+                  <th>setTarget</th>
+                  <th>target_price</th>
+                  <th>variety</th>
+                  <th>validity</th>
+                  <th scope="col">Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let i of mySignals;let index=index">
+                  <td>{{index+1}}</td>
+                  <!-- <td>{{i.Public}}</td>-->
+                  <td>{{i.plan.planName}}</td>
+                  <td>{{i.mentorDetail[0].name}}</td>
+                  <td>{{i.BSE_NSC}}</td>
+                  <td>{{i.BUY_SELL}}</td>
+                  <td>{{i.stockName}}</td>
+                  <td>{{i.Qty}}</td>
+                  <td>{{i.Price}}</td>
+                  <td>{{i.MIS_CNC}}</td>
+                  <td>{{i.orderType}}</td>
+                  <td>{{i.triggerPrice}}</td>
+                  <td>{{i.setStoploss}}</td>
+                  <td>{{i.stoploss_percent}}</td>
+                  <td>{{i.setTarget}}</td>
+                  <td>{{i.target_price}}</td>
+                  <td>{{i.variety}}</td>
+                  <td>{{i.validity}}</td>
+                  <td>
+                    <!-- <button class="btn btn-success  btn-sm  " type="button" data-toggle="modal"
+                    data-target="#staticBackdropClient" >
+                    <i class="far fa-delete"></i> Follow
+                  </button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Publick -->
+          <div class="tab-pane fade  " id="AllSignal" role="tabpanel" aria-labelledby="AllSignal-tab">
+            <h3>Public</h3>
+
+            <table class="table table-striped">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <!-- <th>Public</th>
+                  <th>package_id</th> -->
+                  <th>BSE_NSC</th>
+                  <th>BUY_SELL</th>
+                  <th>stockName</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                  <th>MIS_CNC</th>
+                  <th>orderType</th>
+                  <th>triggerPrice</th>
+                  <th>setStoploss</th>
+                  <th>stoploss_percent</th>
+                  <th>setTarget</th>
+                  <th>target_price</th>
+                  <th>variety</th>
+                  <th>validity</th>
+                  <th scope="col">Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let i of SIGNALs;let index=index">
+                  <td>{{index+1}}</td>
+                  <!-- <td>{{i.Public}}</td>
+                  <td>{{i.package_id}}</td> -->
+                  <td>{{i.BSE_NSC}}</td>
+                  <td>{{i.BUY_SELL}}</td>
+                  <td>{{i.stockName}}</td>
+                  <td>{{i.Qty}}</td>
+                  <td>{{i.Price}}</td>
+                  <td>{{i.MIS_CNC}}</td>
+                  <td>{{i.orderType}}</td>
+                  <td>{{i.triggerPrice}}</td>
+                  <td>{{i.setStoploss}}</td>
+                  <td>{{i.stoploss_percent}}</td>
+                  <td>{{i.setTarget}}</td>
+                  <td>{{i.target_price}}</td>
+                  <td>{{i.variety}}</td>
+                  <td>{{i.validity}}</td>
+                  <td>
+                    <!-- <button class="btn btn-success  btn-sm  " type="button" data-toggle="modal"
+                      data-target="#staticBackdropClient" >
+                      <i class="far fa-delete"></i> Follow
+                    </button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- https://www.zeebiz.com/india-economy.xml -->
+      <div>
+        <!-- <script type="text/javascript" scr="https://www.zeebiz.com/india-economy.xml" ></script> -->
+      </div>
+    </div>
+  </div>
+  <div>
+  </div>
+</div>

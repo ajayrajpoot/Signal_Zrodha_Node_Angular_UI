@@ -1,0 +1,39 @@
+
+<div class="wrapper fadeInDown">
+
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img style="width: 100px;border-radius: 40px; border: 1PX solid #000;
+      position: relative; top: -45px;" src="/assets/profile.png" id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <button class="btn  " [ngClass]="{'btn-success':subscriber_mentor==0,'btn-outline-success':subscriber_mentor!=0}" (click)="subscriber_mentor=0">Subscriver</button>
+    <button class="btn  "  [ngClass]="{'btn-success':subscriber_mentor==1,'btn-outline-success':subscriber_mentor!=1}"  (click)="subscriber_mentor=1" >Mentor</button>
+    <form [formGroup]="frmLogin" (ngSubmit)="loginsubscribe_mentor(frmLogin.value)">
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="Email"   formControlName="email">
+      <p class="errorMsg">{{formErrorsLogin.email}}</p>
+
+      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password" formControlName="password">
+      <p class="errorMsg">{{formErrorsLogin.password}}</p>
+
+      <input type="submit" class="fadeIn fourth" value="Log In"  >
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <div>
+          <a class="underlineHover" href="javascript:void(0)" (click)="redirect('ee/forget')"  >Forgot Password?</a>
+      <!-- <a class="underlineHover" href="javascript:void(0)" (click)="redirect('/forget')"  >Forgot Password?</a> -->
+      <a class="underlineHover" href="javascript:void(0)" (click)="redirect('ee/signup')" >Signup </a>
+      <!-- <a class="underlineHover" href="javascript:void(0)" (click)="signInWithFB()" >Facebook </a>
+      <a class="underlineHover" href="javascript:void(0)" (click)="signInWithGoogle()" >Gmail </a> -->
+ </div>
+       </div>
+
+  </div>
+</div>
+

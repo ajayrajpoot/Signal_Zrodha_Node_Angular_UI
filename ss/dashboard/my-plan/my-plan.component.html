@@ -1,0 +1,184 @@
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="pill" href="#home">My Plans</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="pill" href="#profile">Plans</a>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="myTabContent">
+    <!-- My Plans -->
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <div class="row">
+        <div class="col-12">
+          <hr />
+          <table class="table table-striped">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+
+                <td>planName</td>
+                <td>duration</td>
+                <td>sDate</td>
+                <td>expiery</td>
+                <td>status</td>
+                <td>Price</td>
+                <td>Payment Status</td>
+                <th scope="col">Unsubscribe</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of myplans;let index=index">
+                <td>{{index+1}}</td>
+
+                <td>{{i.plan.planName}}</td>
+                <td>{{i.duration}}
+                  {{i.durationType==1?'Day':(i.durationType==2?'Week':(i.durationType==3?'Month':(i.durationType==4?'year':'--')))}}
+                </td>
+                <td>{{i.sDate| date:'MMM d, y'}}</td>
+                <td>{{i.expiery| date:'MMM d, y'}}</td>
+                <td>{{i.status}}</td>
+                <td>{{i.price}}</td>
+                <td>
+                  {{i.paymentStatus==1?'PANDDING':(i.paymentStatus==2?'APPROVE':(i.paymentStatus==3?'REJECT':(i.paymentStatus==4?'SUSPEND':'-')))}}
+                </td>
+                <td>
+                  <button class="btn btn-success  btn-sm  " type="button" data-toggle="modal"
+                    data-target="#staticBackdropClient" (click)="unsubscribesubscribePlan(i._id)">
+                    <i class="far fa-delete"></i> unsubscribe
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="6">
+
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <!-- All Plans -->
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+      <div class="row">
+        <div class="col-12">
+          <hr />
+          <table class="table table-striped">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+
+                <td>planName</td>
+                <td>duration</td>
+                <td>sDate</td>
+                <td>expiery</td>
+                <td>status</td>
+                <td>price</td>
+                <th scope="col">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of PLANs;let index=index">
+                <td>{{index+1}}</td>
+
+                <td>{{i.planName}}</td>
+                <td>{{i.duration}}
+                  {{i.durationType==1?'Day':(i.durationType==2?'Week':(i.durationType==3?'Month':(i.durationType==4?'year':'--')))}}
+                </td>
+                <td>{{i.sDate}}</td>
+                <td>{{i.expiery | date:'MMM d, y'}}</td>
+                <td>{{i.status }}</td>
+                <td>{{i.price}}</td>
+                <td>
+
+
+                  <!-- <button class="btn btn-success  btn-sm  " type="button" data-toggle="modal"
+                  data-target="#staticBackdropClient" (click)="subscribePlan(i)">
+                  <i class="far fa-delete"></i> Subscribe
+                </button> -->
+
+                  <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
+                    data-target="#subscribeModal" (click)="subscribePlan(i);cPlan=i">
+                    Subscribe & Pay
+                  </button>
+
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="6">
+
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <div>
+
+  </div>
+</div>
+
+
+
+<!-- Add PLAN -->
+<div class="modal fade" id="subscribeModal" tabindex="-1" role="dialog" aria-labelledby="subscribeLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="subscribeLabel">PLAN <b> </b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-row">
+          <div class="col-6">
+            Plan : {{cPlan?.planName}} <br>
+            Duration : {{cPlan?.duration}}
+            {{cPlan?.durationType==1?'Day':(cPlan?.durationType==2?'Week':(cPlan?.durationType==3?'Month':(cPlan?.durationType==4?'year':'--')))}}
+            <br>
+            Price: {{cPlan?.price}}
+          </div>
+
+
+          <div class="col-6">
+            <form method="post" action="https://payment.ajaysinghrajpoot.com/payment_paytm_signal/pay.php" ngNoForm  >
+              <button type="submit" class="btn btn-primary" (click)="subscribePlan(cPlan)">
+                Buy Plan
+              </button>
+              <input type="text" name='amount' [value]="cPlan?.price">
+              <input type="text" name='order_code' [value]="cSunscribePlan._id">
+              <input type="text" name='userId' [value]="cSubscriber?._id">
+              <input type="text" name='email' [value]="cSubscriber?.email">
+              <input type="text" name='phone' [value]="cSubscriber?.phone || 12313">
+            </form>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" #subscribeModalClose data-dismiss="modal">Close</button>
+
+      </div>
+
+    </div>
+  </div>
+</div>

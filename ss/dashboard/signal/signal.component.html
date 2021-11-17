@@ -1,0 +1,274 @@
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+
+  <div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-8">
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#staticBackdrop"
+        (click)="frmSIGNAL.reset();cSIGNAL=null">
+        Add Signal
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <hr />
+      <table class="table table-striped">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <!-- <th>Public</th>-->
+            <th>Plan</th>
+            <th>BSE_NSC</th>
+            <th>BUY_SELL</th>
+            <th>stockName</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>MIS_CNC</th>
+            <th>orderType</th>
+            <th>triggerPrice</th>
+            <th>setStoploss</th>
+            <th>stoploss_percent</th>
+            <th>setTarget</th>
+            <th>target_price</th>
+            <th>variety</th>
+            <th>validity</th>
+
+            <th scope="col">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of SIGNALs;let index=index">
+            <td>{{index+1}}</td>
+            <!-- <td>{{i.Public}}</td> -->
+            <td> {{i.plan.planName }}</td>
+            <td>{{i.BSE_NSC}}</td>
+            <td>{{i.BUY_SELL}}</td>
+            <td>{{i.stockName}}</td>
+            <td>{{i.Qty}}</td>
+            <td>{{i.Price}}</td>
+            <td>{{i.MIS_CNC}}</td>
+            <td>{{i.orderType}}</td>
+            <td>{{i.triggerPrice}}</td>
+            <td>{{i.setStoploss}}</td>
+            <td>{{i.stoploss_percent}}</td>
+            <td>{{i.setTarget}}</td>
+            <td>{{i.target_price}}</td>
+            <td>{{i.variety}}</td>
+            <td>{{i.validity}}</td>
+
+            <td>
+
+
+              <button class="btn btn-success  btn-sm  " type="button" (click)="cSIGNAL=i;frmSIGNAL.reset(i)"
+                data-toggle="modal" data-target="#staticBackdrop">
+                <i class="far fa-edit"></i>
+              </button>
+
+              <button class="btn btn-success  btn-sm  " type="button" data-toggle="modal"
+                data-target="#staticBackdropClient" (click)="deleteSignal(i._id)">
+                <i class="far fa-delete"></i> Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6">
+
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  <div>
+    <!-- Add SIGNAL -->
+    <div class="modal fade" id="staticBackdrop" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">SIGNAL <b> </b></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form [formGroup]="frmSIGNAL"
+            (ngSubmit)="frmSIGNAL.valid?addUpdateSignal(frmSIGNAL.value): markFormTouched(frmSIGNAL)">
+            <div class="modal-body">
+              <div class="form-row">
+
+                <div class="col-6">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="chkisPublic">
+                    <label class="form-check-label" for="chkisPublic">isPublic</label>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> package_id</label>
+                    <select class="form-control" formControlName="package_id">
+                      <option *ngFor="let p of PLANs" [value]="p._id">{{p.planName}}</option>
+                    </select>
+                    <p class="errorMsg">{{formErrorsSIGNAL.package_id}}</p>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div>
+                    <label class="radio-inline"> <input type="radio" value="BSC" name="BSE_NSC"
+                        formControlName="BSE_NSC"> BSE </label>
+                    <label class="radio-inline"> <input type="radio" value="NSC" name="BSE_NSC"
+                        formControlName="BSE_NSC"> NSC </label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div>
+                    <label class="radio-inline"> <input type="radio" value="BUY" name="BUY_SELL"
+                        formControlName="BUY_SELL"> BUY </label>
+                    <label class="radio-inline"> <input type="radio" value="SELL" name="BUY_SELL"
+                        formControlName="BUY_SELL"> SELL </label>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> stockName</label>
+                    <input type="text" class="form-control" placeholder="stockName" formControlName="stockName">
+                    <p class="errorMsg">{{formErrorsSIGNAL.stockName}}</p>
+                  </div>
+                </div>
+
+
+
+                <div class="col-6">
+
+                </div>
+
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> Qty (Lot:1)</label>
+                    <input type="number" class="form-control" placeholder="Qty" formControlName="Qty">
+                    <p class="errorMsg">{{formErrorsSIGNAL.Qty}}</p>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> Price(Tick:0.01)</label>
+                    <input type="number" class="form-control" placeholder="Price" formControlName="Price">
+                    <!-- <p class="errorMsg">{{formErrorsSIGNAL.Price}}</p> -->
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div>
+
+                    <label class="radio-inline"> <input type="radio" value="MIS" name="MIS_CNC"
+                        formControlName="MIS_CNC"> MIS </label>
+                    <label class="radio-inline"> <input type="radio" value="CNC" name="MIS_CNC"
+                        formControlName="MIS_CNC"> CNC </label>
+
+                  </div>
+                </div>
+                <!-- order -->
+                <div class="col-12">
+                  <div class="form-group">
+                    <label> Order</label><br>
+
+                    <label class="radio-inline"> <input type="radio" value="MARKET" name="orderType"
+                        formControlName="orderType"> MARKET </label>
+                    <label class="radio-inline"> <input type="radio" value="LIMIT" name="orderType"
+                        formControlName="orderType"> LIMIT </label>
+                    <label class="radio-inline"> <input type="radio" value="SL" name="orderType"
+                        formControlName="orderType"> SL </label>
+                    <label class="radio-inline"> <input type="radio" value="SLM" name="orderType"
+                        formControlName="orderType"> SLM </label>
+
+                  </div>
+                </div>
+
+                <!-- Trigger  show in SL/SLM -->
+                <div class="col-6">
+                  <label>Trigger</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Stock Market" formControlName="triggerPrice"
+                      placeholder="Trigger Price">
+
+                  </div>
+                </div>
+                <div class="col-6">
+                </div>
+                <!-- stop loss -->
+                <div class="col-6">
+                  <div class="checkbox">
+                    <label><input type="checkbox" formControlName="setStoploss" name="setStoploss"> Set Stoploss
+                    </label>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Stock Market"
+                      formControlName="stoploss_percent">
+                    <div class="input-group-append">
+                      <span class="input-group-text">%</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- target price -->
+                <div class="col-6">
+                  <div class="checkbox">
+                    <label><input type="checkbox" formControlName="setTarget"> Set Target </label>
+                  </div>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Stock Market" formControlName="target_price">
+                    <div class="input-group-append">
+                      <span class="input-group-text">%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div>
+                    <label>Variety</label><br>
+                    <label class="radio-inline"> <input type="radio" value="RGLR" name="variety"
+                        formControlName="variety"> RGLR </label>
+                    <label class="radio-inline"> <input type="radio" value="BO" name="variety"
+                        formControlName="variety"> BO </label>
+                    <label class="radio-inline"> <input type="radio" value="OC" name="variety"
+                        formControlName="variety"> CO </label>
+                    <label class="radio-inline"> <input type="radio" value="AMO" name="variety"
+                        formControlName="variety"> AMO </label>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div>
+                    <label>Validity</label><br>
+                    <label class="radio-inline">
+                      <input type="radio" value="Day" name="validity" formControlName="validity"> Day
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" value="IOC" name="validity" formControlName="validity"> IOC </label>
+
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">
+                {{cSIGNAL==null?"Add":"Update"}} Signal {{frmSIGNAL.valid}}
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

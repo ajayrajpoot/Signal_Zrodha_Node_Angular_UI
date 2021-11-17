@@ -1,0 +1,171 @@
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+
+    <div class="row">
+        <div class="col-4"> </div>
+        <div class="col-2"> </div>
+        <div class="col-4">  </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
+                data-target="#staticBackdrop">
+                Add User Level
+            </button>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <hr />
+            <table class="table table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">level</th>
+                        <th scope="col">description</th>
+                        <th scope="col">permission</th> 
+                        <th scope="col">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let i of USER_LEVELs ;let index=index">
+                        <td >{{index+1}}</td>
+                        <td>{{i.level}}</td>
+                        <td>{{i.description}}</td>
+                        <td> <button (click)="GET_PERMITION_BY_IDS(i.permission)"  data-toggle="modal"
+                            data-target="#permitionModal" >Permissions</button> </td>
+                        <!-- <td><ul [innerHTML]="GET_PERMITION_BY_IDS(i.permission,index)"></ul></td> -->
+                         <td>
+ 
+                            <button class="btn btn-success  btn-sm  " type="button" (click)="cUSER_LEVEL=i;bindLevel(i)"
+                                data-toggle="modal" data-target="#staticBackdrop">
+                                <i class="far fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger  btn-sm  " type="button" (click)="DELETE_USER_LEVEL(i.level_id)">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                          
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+
+
+        </div>
+    </div>
+    <div>
+        <!-- Button trigger modal -->
+
+
+ 
+
+        <!-- Add USER_LEVEL -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Levels </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLelelModalBtn">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div> 
+                    <form [formGroup]="frmUSER_LEVEL" (ngSubmit)="ADD_USER_LEVEL(frmUSER_LEVEL.value)">
+                        <div class="modal-body">
+                            <div class="form-row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label> level</label>
+                                        <input type="text" class="form-control" placeholder="Enter level"
+                                            formControlName="level">
+                                        <p class="errorMsg">{{formErrorsUSER_LEVEL.level}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>description </label>
+                                        <input type="text" class="form-control" placeholder="Enter description"
+                                            formControlName="description">
+                                        <p class="errorMsg">{{formErrorsUSER_LEVEL.description}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-6" *ngFor="let p of PermisionList; let i = index" formArrayName="permission"    >
+                                    <input type="checkbox" value="p.permission_id"  [formControlName]="i"    >
+                                    <span>{{p.permission}}  </span>
+                                </div>                             
+                            </div>
+                        </div> 
+                            <button type="button" class="btn btn-primary"
+                                (click)="frmUSER_LEVEL.valid?ADD_USER_LEVEL(frmUSER_LEVEL.value): markFormTouched(frmUSER_LEVEL)">Add USER_LEVEL</button>                        
+                    </form> 
+                </div>
+            </div>
+        </div>
+          <!--   User Permition -->
+          <div class="modal fade" id="permitionModal" data-backdrop="static" tabindex="-1" role="dialog"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">permission</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLelelModalBtn">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div> 
+                    <div class="modal-body">
+                          <div class="form-row">
+                              
+                              <div class="row">
+                                  <div class="col-12">
+                                      <hr /> 
+                                      <table class="table table-striped">
+                                          <thead class="thead-light">
+                                              <tr>
+                                                  <th scope="col">#</th>
+                                                  <th scope="col">permission</th>
+                                                  <th scope="col">description</th>
+                                                  <th scope="col">url</th> 
+                                                  <th scope="col">Edit</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr
+                                                  *ngFor="let i of ULPermition ;let index=index">
+                                                  <td>{{index+1}}</td>
+                                                  <td>{{i.permission}}</td>
+                                                  <td>{{i.description}}</td>
+                                                  <td>{{i.url}}</td>
+                                                   <td> <input type="checkbox" (click)="addPermition(i.permission_id)"> </td>
+                                              </tr>
+                                          </tbody>
+                                          <tfoot>
+                                              <tr>
+                                                  <td colspan="6">
+                                                    
+                                                  </td>
+                                              </tr>
+                                          </tfoot>
+                                      </table>
+                                          </div>
+                              </div>
+                          </div>
+                      </div> 
+                         
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
+
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+    
+    
+</div>
+  

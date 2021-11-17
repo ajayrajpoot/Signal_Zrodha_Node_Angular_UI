@@ -1,0 +1,146 @@
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+
+  <div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-8">
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#staticBackdrop"
+        (click)="frmSUBSCRIBER.reset();cSUBSCRIBER=null">
+        Add Subscriber
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <hr />
+      <table class="table table-striped">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th>name</th>
+            <th>email</th>
+            <th>phone</th>
+            <th>password</th>
+            <th>address</th>
+            <th>is_Active</th>
+            <th scope="col">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of SUBSCRIBERs;let index=index">
+            <td>{{index+1}}</td>
+
+            <td>{{i.name}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.phone}}</td>
+            <td>{{i.password}}</td>
+            <td>{{i.address}}</td>
+            <td>{{i.is_Active}}</td>
+
+            <td>
+
+
+              <button class="btn btn-success  btn-sm  " type="button" (click)="cSUBSCRIBER=i;frmSUBSCRIBER.reset(i)"
+                data-toggle="modal" data-target="#staticBackdrop">
+                <i class="far fa-edit"></i>
+              </button>
+
+              <button class="btn btn-success  btn-sm  " type="button" data-toggle="modal"
+                data-target="#staticBackdropClient" (click)="currentSubscriber(i)"> Login
+                <i class="far fa-delete"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6">
+
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+  <div>
+    <!-- Add SUBSCRIBER -->
+    <div class="modal fade" id="staticBackdrop" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">SUBSCRIBER <b> </b></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form [formGroup]="frmSUBSCRIBER"
+            (ngSubmit)="frmSUBSCRIBER.valid?addUpdateSubscriber(frmSUBSCRIBER.value): markFormTouched(frmSUBSCRIBER)">
+            <div class="modal-body">
+              <div class="form-row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> name</label>
+                    <input type="text" class="form-control" placeholder="name" formControlName="name">
+                    <p class="errorMsg">{{formErrorsSUBSCRIBER.name}}</p>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> phone </label>
+                    <input type="text" class="form-control" placeholder="phone" formControlName="phone">
+                    <p class="errorMsg">{{formErrorsSUBSCRIBER.phone}}</p>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> email </label>
+                    <input type="text" class="form-control" placeholder="Email" formControlName="email">
+                    <p class="errorMsg">{{formErrorsSUBSCRIBER.email}}</p>
+                  </div>
+                </div>
+
+
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> password</label>
+                    <input type="text" id="password" class="form-control" placeholder="password"
+                      formControlName="password">
+                    <p class="errorMsg">{{formErrorsSUBSCRIBER.password}}</p>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label> address </label>
+                    <input type="text" class="form-control" placeholder="address" formControlName="address">
+                    <p class="errorMsg">{{formErrorsSUBSCRIBER.address}}</p>
+                  </div>
+                </div>
+
+
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>ACTIVE </label>
+                    <input type="checkbox" formControlName="is_Active">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">
+                {{cSUBSCRIBER==null?"Add":"Update"}} Client
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

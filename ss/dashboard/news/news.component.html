@@ -1,0 +1,166 @@
+
+<div class="shadow-sm p-3 mb-5 bg-white rounded">
+  <div class="row">
+    <div class="col-12">
+      <hr />
+      <div class="row">
+        <div class="col-4">
+          <div style="display: block;">
+            <!-- [options]="lineChartOptions" -->
+
+
+            <canvas baseChart width="50" height="50" [datasets]="lineChartData" [labels]="lineChartLabels"
+              [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+              [plugins]="lineChartPlugins">
+            </canvas>
+          </div>
+        </div>
+        <div class="col-4">
+          <div (click)="makeChert();"></div>
+        </div>
+        <div class="col-4"></div>
+      </div>
+
+
+      <hr />
+    </div>
+  </div>
+
+
+
+  <div class="row">
+
+
+    <div class="col-2">
+
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-Event-tab" data-toggle="pill" href="#v-pills-Event" role="tab"
+          aria-controls="v-pills-Event" aria-selected="true" (click)="mql5currentweek()">mql5currentweek</a>
+        <a class="nav-link" id="v-pills-Event-tab" data-toggle="pill" href="#v-pills-Event" role="tab"
+          aria-controls="v-pills-Event" aria-selected="false" (click)="mql5previousweek()">mql5previousweek</a>
+        <a class="nav-link" id="v-pills-Event-tab" data-toggle="pill" href="#v-pills-Event" role="tab"
+          aria-controls="v-pills-Event" aria-selected="false" (click)="mql5nextweek()">mql5nextweek</a>
+        <a class="nav-link" id="v-pills-Event-tab" data-toggle="pill" href="#v-pills-Event" role="tab"
+          aria-controls="v-pills-Event" aria-selected="false" (click)="mql5currentmonth()">mql5currentmonth</a>
+        <a class="nav-link" id="v-pills-Event-tab" data-toggle="pill" href="#v-pills-Event" role="tab"
+          aria-controls="v-pills-Event" aria-selected="false" (click)="mql5previousmonth()">mql5previousmonth</a>
+        <a class="nav-link" id="v-pills-Event-tab" data-toggle="pill" href="#v-pills-Event" role="tab"
+          aria-controls="v-pills-Event" aria-selected="false" (click)="mql5nexttmonth()">mql5nexttmonth</a>
+        <a class="nav-link" id="v-pills-Event-tab" data-toggle="pill" href="#v-pills-Event_ByDate" role="tab"
+          aria-controls="v-pills-Event_ByDate" aria-selected="false">mql5calendarbydate</a>
+      </div>
+    </div>
+    <div class="col-4">
+      <!-- <perfect-scrollbar style="max-width: 600px; max-height: 400px;" [config]="config"> -->
+
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-Event" role="tabpanel" aria-labelledby="v-pills-Event-tab">
+          <table>
+            <thead>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+              <tr></tr>
+            </thead>
+
+          </table>
+          <perfect-scrollbar style="max-width: 600px; max-height: 400px;" [config]="config">
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+            <p>dsfs fds fsdf sdf sdf dsf s</p>
+
+          </perfect-scrollbar>
+          <ul>
+            <li *ngFor="let e of eventmql5;let index=index"><a href="javascript:void(0)"
+                (click)="getDetail(e.Url,0)">Country:{{e.Country}},CurrencyCode:{{e.CurrencyCode}},Event:{{e.EventName}}</a>
+            </li>
+          </ul>
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-Event_ByDate" role="tabpanel" aria-labelledby="v-pills-Event_ByDate-tab">
+
+          <div class="row">
+            <div class="col-4">
+
+              <label>From</label>
+              <input type="date" class="input" placeholder="From">
+            </div>
+            <div class="col-4">
+              <label>From</label>
+              <input type="date" class="input" placeholder="From">
+            </div>
+            <div class="col-4">
+              <input type="button" value="Submit">
+            </div>
+          </div>
+          <ul>
+            <li *ngFor="let e of eventmql5;let index=index"><a href="javascript:void(0)"
+                (click)="getDetail(e.Url,0)">Country:{{e.Country}},CurrencyCode:{{e.CurrencyCode}},Event:{{e.EventName}}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...
+        </div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...
+        </div>
+      </div>
+
+
+
+    </div>
+
+    <div class="col-6">
+
+      <app-history></app-history>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>DATE (GMT)</td>
+            <td>REFERENCE</td>
+            <td>ACTUAL</td>
+            <td>FORECAST</td>
+            <td>PREVIOUS</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr *ngFor="let h of eventmql5History.Rows">
+            <td>{{h.ReleaseDate}}</td>
+            <td>{{h.Period}}</td>
+            <td>{{h.ActualValue}}</td>
+            <td>{{h.ForecastValue}}</td>
+            <td>{{h.PreviousValue}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5">
+              <input type="button" value="&lt;&lt;Previous" class="btn btn-primary"
+                (click)="getDetail(cUrl,cRowIndex-20)" [disabled]='cRowIndex==0'>
+              <input type="button" value="Next &gt;&gt;" class="btn btn-primary" (click)="getDetail(cUrl,cRowIndex+20)"
+                [disabled]='!eventmql5History.MoreRows'>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

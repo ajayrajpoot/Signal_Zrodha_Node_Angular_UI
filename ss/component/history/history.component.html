@@ -1,0 +1,21 @@
+<p>history works!</p>
+<table class="table">
+  <tbody>
+    <tr>
+      <td>DATE (GMT)</td>
+      <td>REFERENCE</td>
+      <td>ACTUAL</td>
+      <td>FORECAST</td>
+      <td>PREVIOUS</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr *ngFor="let h of eventmql5History.Rows">
+      <td>{{h.ReleaseDate}}</td>
+      <td>{{h.Period}}</td>
+      <td>{{h.ActualValue}}</td>
+      <td>{{h.ForecastValue}}</td>
+      <td>{{h.PreviousValue}}</td>
+    </tr>
+  </tbody>
+</table>
